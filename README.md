@@ -1,2 +1,3 @@
-# Python_harjoitustyo kurssille Python ohjelmointia aloittelijoille
+# Python_harjoitustyo 
 
+## Dokumentaatio
