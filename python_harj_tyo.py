@@ -11,10 +11,10 @@ class Todo:
 def file_name_checker():
     filename = ""
     while True:
-        filename = input("Anna tiedostonimi joka päättyy '.txt' (jos tiedostoa ei ole se luodaan): ")
+        filename = input("Anna tallennustiedoston nimi päätteellä: .txt (jos tiedostoa ei ole se luodaan): ")
         fn_len = len(filename)
         if fn_len <= 4:
-            print("Tiedoston nimen ja päätteen '.txt' yhteispituus tulee olla vähintään 5 merkkiä")
+            print("Tiedoston nimen ja päätteen .txt yhteispituus tulee olla vähintään 5 merkkiä")
         elif fn_len > 100:
             print("Tiedostonimi on liian pitkä")
         else:
@@ -117,12 +117,12 @@ def main():
     print("Uusi todo:", "U")
     print("Muokkaa todoa:", "M")
     print("Poista todo:", "P")
-    print("Lopeta:", "stop")
     print("Komentoapu:", "help")
+    print("Lopeta:", "stop")
     print()
 
     while True:    
-        command = input("Valitse (L, E, U, M, P, stop, help): ")
+        command = input("Valitse (L, E, U, M, P, help, stop): ")
         if command == "L":
             todo_list()
         elif command == "E":
@@ -133,15 +133,15 @@ def main():
             print("Muokkaa")
         elif command == "P":
             print("Poista")
-        elif command == "stop":
-            print("Ohjelma sulkeutuu, kiitos ja näkemiin!")
-            break
         elif command == "help":
             print("|Listaa todot: L", "|Etsi todoja: E", "|Uusi todo: U", "|Muokkaa todoa: M", "|Poista todo: P") 
             print("|Lopeta: stop", "|Komentoapu: help")
+        elif command == "stop":
+            print("Ohjelma sulkeutuu, kiitos ja näkemiin!")
+            break
         else:
             print("Tuntematon komento!")
-            print("Kirjoita:", "help", "saadaksesi apua")
+            print("Kirjoita help saadaksesi apua")
         print()
 
 main()
