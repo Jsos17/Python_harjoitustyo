@@ -18,8 +18,8 @@ def file_name_checker():
         elif fn_len > 100:
             print("Tiedostonimi on liian pitkä")
         else:
-            end = len(filename)
-            start = len(filename) - 4
+            end = fn_len
+            start = fn_len - 4
             if filename[start:end] == ".txt":
                 break
             else:
@@ -36,50 +36,112 @@ def save(filename, todo):
             with open(filename, "wt") as f:
                 f.write(entry)
     except OSError:
-        print("Tiedostoa ei voitu luoda tai avata")
+        print("Tiedostoa ei voitu luoda tai avata!")
 
 def read(filename):
+    l = []
     try:
-        l = []
-        f = open(filename, "rt")
-        for line in f:
-            l.append(line.strip())
-        f.close()
-        return l
+        with open(filename, "rt") as f:
+            for line in f:
+                l.append(line.strip())
     except FileNotFoundError:
-        print("Tiedostoa ei löydy")
+        print("Tiedostoa ei löydy!")
+    return l
+
+def find():
+    filename = input("Anna tiedoston nimi (Tiedoston pitää olla komennon suorituskansion sisällä): ")
+    keyword = input("Etsi todon nimen perusteella: ")
+    todo_matches = []
+    try:
+        with open(filename, "rt") as f:
+            for line in f:
+                todo_string = line.strip()
+                name = todo_string.split("|")[0].strip()
+                if keyword in name:
+                    todo_matches.append(todo_string)
+
+        if len(todo_matches) > 0:
+            print("Löydetyt avainsanaa vastaavat todot:")
+            print()
+            print("Nimi | Kuvaus | Deadline | Prioriteetti | Status")
+            for match in todo_matches:
+                print(match)
+        else:
+            print()
+            print("Ei löydettyjä vastaavuksia")
+    except FileNotFoundError:
+        print("Tiedostoa ei löydy!")
+    
+def update(filename):
+    pass
+
+def delete(filename):
+    pass
+
+def todo_list():
+    filename = input("Anna tiedoston nimi (Tiedoston pitää olla komennon suorituskansion sisällä): ")
+    todolist = read(filename)
+    if len(todolist) > 0:
+        print("Löydetyt todot:")
+        print("Nimi | Kuvaus | Deadline | Prioriteetti | Status")
+        print()
+        for entry in todolist:
+            print(entry)
+    else:
+        print("Ei todoja")
 
 def todo_create():
     name = input("Tehtävän nimi: ")
-        description = input("Kuvaus: ")
-        deadline = input("Deadline: ")
-        priority = input("Prioriteetti: ")
-        done = input("Tehtävän status: ")
-        todo = Todo(name, description, deadline, priority, done)
+    description = input("Kuvaus: ")
+    deadline = input("Deadline: ")
+    priority = input("Prioriteetti: ")
+    done = input("Tehtävän status: ")
+    print("Syötit:")
+    print("|Nimi:", name, "|Kuvaus:", description, "|Deadline:", deadline, "|Prioriteetti:", priority, "|Status:", done)
+    print()
 
-        print("Syötit:")
-        print("|Nimi:", name, "|Kuvaus:", description, "|Deadline:", deadline, "|Prioriteetti:", priority, "|Status:", done)
-        return todo
+    save_status = input("Haluatko tallentaa? (y/n): ")
+    if save_status == "y":
+        filename = file_name_checker()
+        todo = Todo(name, description, deadline, priority, done)
+        save(filename, todo)
+        print("Tallennus onnistui!")
+    else:
+        print("Tallennusta ei suoritettu")
 
 def main():
     print("Todo-lista")
-    while True:
-        todo = todo_create()
-        save_status = input("Haluatko tallentaa? (y/n): ")
-        if save_status == "y":
-            filename = file_name_checker()
-            save(filename, todo)
-            print("Tallennus onnistui!")
-        else:
-            print("Tallennusta ei suoritettu")
+    print("Valitse toiminto kirjoittamalla haluttu komento:")
+    print("Listaa todot:", "L")
+    print("Etsi todoja", "E")
+    print("Uusi todo:", "U")
+    print("Muokkaa todoa:", "M")
+    print("Poista todo:", "P")
+    print("Lopeta:", "stop")
+    print("Komentoapu:", "help")
+    print()
 
-        print("") 
-        cont = input("Haluatko jatkaa? (y/n): ")
-        if cont == "n":
-            print("Ohjelma sulkeutuu!")
+    while True:    
+        command = input("Valitse (L, E, U, M, P, stop, help): ")
+        if command == "L":
+            todo_list()
+        elif command == "E":
+            find()
+        elif command == "U":
+            todo_create()
+        elif command == "M":
+            print("Muokkaa")
+        elif command == "P":
+            print("Poista")
+        elif command == "stop":
+            print("Ohjelma sulkeutuu, kiitos ja näkemiin!")
             break
-            
+        elif command == "help":
+            print("|Listaa todot: L", "|Etsi todoja: E", "|Uusi todo: U", "|Muokkaa todoa: M", "|Poista todo: P") 
+            print("|Lopeta: stop", "|Komentoapu: help")
+        else:
+            print("Tuntematon komento!")
+            print("Kirjoita:", "help", "saadaksesi apua")
+        print()
+
 main()
-l = read("todo.txt")
-for entry in l:
-        print(entry)
