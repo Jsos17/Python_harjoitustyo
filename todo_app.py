@@ -12,7 +12,7 @@ class Todo:
 
 # This method checks that the file ending is correct i.e. .txt
 # Tarkistaa, että tiedostopääte on haluttu .txt
-def filename_checker():
+def file_choice():
     filename = ""
     while True:
         print("Anna tallennustiedosto joka sijaitsee ohjelman suorituskansiossa (jos tiedostoa ei ole se luodaan) ja jonka pääte on .txt")
@@ -103,7 +103,7 @@ def update(filename):
             todo = todo_modify(todos[index])
             entry = todo.name + " | " + todo.description + " | " + todo.deadline + " | " + todo. priority + " | " + todo.done_status
             print("Muokattu todo:", entry)
-            modify_status = input("Haluatko tallentaa? (y/n): ")
+            modify_status = input("Haluatko tallentaa (y/n)?: ")
             if modify_status == "y":
                 try:
                     temp_filename = filename + ".tmp"
@@ -131,7 +131,7 @@ def delete(filename):
         
         if index != -1:
             print("Poistettava Todo:", index, todos[index])
-            confirmation = input("Poistetaanko rivi? (y/n): ")
+            confirmation = input("Poistetaanko rivi (y/n)?: ")
             if confirmation == "y":
                 try:
                     temp_filename = filename + ".tmp"
@@ -169,11 +169,10 @@ def todo_create(filename):
     priority = input("Prioriteetti: ")
     done = input("Tehtävän status: ")
     print("Syötit:")
-    print("|Nimi:", name, "|Kuvaus:", description, "|Deadline:",
-          deadline, "|Prioriteetti:", priority, "|Status:", done)
+    print("|Nimi:", name, "|Kuvaus:", description, "|Deadline:", deadline, "|Prioriteetti:", priority, "|Status:", done)
     print()
 
-    save_status = input("Haluatko tallentaa? (y/n): ")
+    save_status = input("Haluatko tallentaa (y/n)?: ")
     if save_status == "y":
         save(filename, Todo(name, description, deadline, priority, done))
     else:
@@ -245,7 +244,7 @@ def main():
                 print("Ohjelma sulkeutuu, kiitos ja näkemiin!")
                 break
             elif choice == "choose file":
-                filename = filename_checker()
+                filename = file_choice()
                 if filename != "cancel":
                     file_chosen = True
                     print("Listaa todot:", "list")
@@ -272,7 +271,7 @@ def main():
             elif command == "delete":
                 delete(filename)
             elif command == "change file":
-                f2 = filename_checker()
+                f2 = file_choice()
                 if f2 != "cancel":
                     filename = f2
             elif command == "help":
