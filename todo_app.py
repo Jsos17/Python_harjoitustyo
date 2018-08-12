@@ -112,9 +112,9 @@ def update(filename):
                             if i == index:
                                 tempfile.write(entry + "\n")
                             else:  
-                                tempfile.write(todos[i]+"\n")
+                                tempfile.write(todos[i] + "\n")
                     
-                    os.rename(temp_filename, filename)
+                    os.replace(temp_filename, filename)
                     print("Päivitys onnistui!")
                 except OSError:
                     print("Päivitys epäonnistui!")
@@ -138,9 +138,9 @@ def delete(filename):
                     with open(temp_filename, "wt") as tempfile:
                         for i in range(len(todos)):
                             if i != index:  
-                                tempfile.write(todos[i]+"\n")
+                                tempfile.write(todos[i] + "\n")
                     
-                    os.rename(temp_filename, filename)
+                    os.replace(temp_filename, filename)
                     print("Poistaminen onnistui!")
                 except OSError:
                     print("Poistaminen epäonnistui!")
