@@ -1,5 +1,6 @@
 import os.path
 
+
 # A small class to encapsulate the Todo concept
 # Todot on päätetty luoda luokaksi helpottamaan ohjelmointia ja mahdollistamaan jatkokehityksen
 class Todo:
