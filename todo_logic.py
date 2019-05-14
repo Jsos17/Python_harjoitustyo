@@ -1,6 +1,4 @@
 from todo import Todo
-import todo_dao
-import todo_io
 
 def check_filename(filename):
     return len(filename) <= 4

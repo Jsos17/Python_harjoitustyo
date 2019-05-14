@@ -1,27 +1,43 @@
 import os.path
 from todo import Todo
-import todo_dao
-import todo_logic
 
 
-def file_choice():
-    filename = ""
-    while True:
-        print("Anna tallennustiedosto joka sijaitsee ohjelman suorituskansiossa (jos tiedostoa ei ole se luodaan) ja jonka pääte on .txt")
-        filename = input("Anna tallennustiedoston nimi päätteellä: .txt TAI lopeta komennolla: cancel :")
-        if filename == "cancel":
-            break
+def welcome():
+    print("Todo-lista")
+    print("Valitse toiminto kirjoittamalla haluttu komento:")
+    print()
 
-        if todo_logic.check_filename(filename):
-            print("Tiedoston nimen ja päätteen .txt yhteispituus tulee olla vähintään 5 merkkiä")
-        else:
-            startend = todo_logic.name_len(filename)
-            if filename[startend[0]:startend[1]] == ".txt":
-                todo_dao.open_file(filename)
-                break
-            else:
-                print("Tiedostopääte on väärä")
-    return filename
+def choose_location():
+    return input("Valitse tekstitiedosto tallennuspaikaksi antamalla komento: choose file, TAI lopeta komennolla: stop: ")
+
+def program_closes():
+    print("Ohjelma sulkeutuu, kiitos ja näkemiin!")
+
+def list_commands():
+    print("Listaa todot:", "list")
+    print("Etsi todoja", "find")
+    print("Uusi todo:", "new")
+    print("Muokkaa todoa:", "update")
+    print("Poista todo:", "delete")
+    print("Muuta tallennuspaikkaa", "change file")
+    print("Komentoapu:", "help")
+    print("Lopeta:", "stop")
+
+def commands_reminder():
+    print("Anna komento:", "choose file", "TAI komento:", "stop")
+
+def current_location(filename):
+    print("Tämänhetkinen tallennustiedosto: ", filename)
+
+def get_filename():
+    print("Anna tallennustiedosto joka sijaitsee ohjelman suorituskansiossa (jos tiedostoa ei ole se luodaan) ja jonka pääte on .txt")
+    return input("Anna tallennustiedoston nimi päätteellä: .txt TAI lopeta komennolla: cancel :")
+
+def print_filename_instruction():
+    print("Tiedoston nimen ja päätteen .txt yhteispituus tulee olla vähintään 5 merkkiä")
+
+def file_ending_incorrect():
+    print("Tiedostopääte on väärä")
 
 def create_entry(todo):
     return todo.name + " | " + todo.description + " | " + todo.deadline + " | " + todo.priority + " | " + todo.done_status + "\n"
@@ -61,12 +77,8 @@ def todo_create(filename):
     print("|Nimi:", name, "|Kuvaus:", description, "|Deadline:", deadline, "|Prioriteetti:", priority, "|Status:", done)
     print()
 
-    save_status = input("Haluatko tallentaa (y/n)?: ")
-    if save_status == "y":
-        todo_dao.save(filename, Todo(name, description, deadline, priority, done))
-    else:
-        print("Tallennusta ei suoritettu")
-
+    return input("Haluatko tallentaa (y/n)?: ")
+        
 def todo_modify(line):
     print("Jätä kenttä tyhjäksi jos et halua muuttaa sitä")
     inputs = []
@@ -99,11 +111,13 @@ def file_error():
     print("Tiedostoa ei löydy!")
 
 def save_message(status):
-    if status:
+    if status == 0:
         print("Tallennus onnistui!")
-    else:
+    elif status == 1:
         print("Tiedostoa ei voitu luoda tai avata!")
-
+    else:
+        print("Tallennusta ei suoritettu")
+        
 def modify_status(todo):
     return input("Haluatko tallentaa (y/n)?: ")
 
