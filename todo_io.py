@@ -35,6 +35,12 @@ def current_location(filename):
     print("Tämänhetkinen tallennustiedosto: ", filename)
 
 
+def choose_command():
+    command = input(
+        "Valitse (list, find, new, update, delete, change file, help, stop): ")
+    return command
+
+
 def get_filename():
     print("Anna tallennustiedosto joka sijaitsee ohjelman suorituskansiossa (jos tiedostoa ei ole se luodaan) ja jonka pääte on .txt")
     filename = input(

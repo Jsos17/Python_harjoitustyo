@@ -95,8 +95,7 @@ def control():
                 todo_io.commands_reminder()
         else:
             todo_io.current_location(filename)
-            command = input(
-                "Valitse (list, find, new, update, delete, change file, help, stop): ")
+            command = todo_io.choose_command()
             if command == "list":
                 todo_io.list_todos(todo_dao.read(filename))
             elif command == "find":

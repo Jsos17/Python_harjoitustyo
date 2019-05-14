@@ -6,7 +6,6 @@ def check_filename(filename):
 
 
 def file_ending(filename):
-    print(filename)
     fn_len = len(filename)
     return filename[fn_len - 4:fn_len]
 
