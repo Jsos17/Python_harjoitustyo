@@ -3,9 +3,81 @@ import todo_logic
 import todo_dao
 import todo_io
 
-def main():
-    todo_io.welcome()
 
+def file_choice():
+    filename = ""
+    while True:
+        filename = todo_io.get_filename()
+        if filename == "cancel":
+            break
+
+        if todo_logic.check_filename(filename):
+            todo_io.print_filename_instruction()
+        else:
+            if todo_logic.file_ending(filename) == ".txt":
+                todo_dao.open_file(filename)
+                break
+            else:
+                todo_io.file_ending_incorrect()
+    return filename
+
+
+def new(filename):
+    todo = todo_io.todo_create(filename)
+    if todo_io.save_confirmation() == "y":
+        status = todo_dao.save(filename, todo_io.create_entry(todo))
+        todo_io.save_message(status)
+
+
+def update(filename):
+    keyword = todo_io.find_keyword(filename)
+    indexes_todos = todo_dao.find(filename, keyword)
+    todos = indexes_todos[1]
+    if len(indexes_todos[0]) > 0:
+        todo_io.print_matches(indexes_todos)
+    else:
+        todo_io.list_todos(todos)
+
+    instruction = todo_io.update_delete("update")
+    index = todo_logic.get_index(len(todos), instruction)
+    if index == -1:
+        todo_io.no_changes()
+    elif index == -2:
+        todo_io.index_not_in_list()
+    elif index == -3:
+        todo_io.not_in_Z()
+    else:
+        inputs = todo_io.todo_modify()
+        todo = todo_logic.todo_modify(todos[index], inputs)
+        todo_entry = todo_io.create_entry(todo)
+
+        if todo_io.modify_status(todo) == "y":
+            todo_io.update_status(todo_dao.update(
+                filename, todo_entry, index, todos))
+        else:
+            todo_io.no_changes()
+
+
+def delete(filename):
+    keyword = todo_io.find_keyword(filename)
+    indexes_todos = todo_dao.find(filename, keyword)
+    todos = indexes_todos[1]
+    if len(indexes_todos[0]) > 0:
+        todo_io.print_matches(indexes_todos)
+    else:
+        todo_io.list_todos(todos)
+
+    instruction = todo_io.update_delete("delete")
+    index = todo_logic.get_index(len(todos), instruction)
+    if index != -1 and index != -2 and index != -3:
+        if todo_io.delete_confirmation(index, todos[index]) == "y":
+            todo_io.delete_status(todo_dao.delete(filename, index, todos))
+        else:
+            todo_io.no_changes()
+
+
+def control():
+    todo_io.welcome()
     file_chosen = False
     filename = "cancel"
     while True:
@@ -23,13 +95,15 @@ def main():
                 todo_io.commands_reminder()
         else:
             todo_io.current_location(filename)
-            command = input("Valitse (list, find, new, update, delete, change file, help, stop): ")
+            command = input(
+                "Valitse (list, find, new, update, delete, change file, help, stop): ")
             if command == "list":
-                todo_list(filename)
+                todo_io.list_todos(todo_dao.read(filename))
             elif command == "find":
-                find(filename)
+                keyword = todo_io.find_keyword(filename)
+                todo_io.print_matches(todo_dao.find(filename, keyword))
             elif command == "new":
-                todo_create(filename)
+                new(filename)
             elif command == "update":
                 update(filename)
             elif command == "delete":
@@ -39,32 +113,10 @@ def main():
                 if f2 != "cancel":
                     filename = f2
             elif command == "help":
-                print("| Listaa todot: list", "| Etsi todoja: find", "| Uusi todo: new", "| Muokkaa todoa: update", "| Poista todo: delete") 
-                print("| Vaihda tallenustiedosto: change file", "| Komentoapu: help", "| Lopeta: stop")
+                todo_io.list_commands()
             elif command == "stop":
-                print("Ohjelma sulkeutuu, kiitos ja näkemiin!")
+                todo_io.program_closes()
                 break
             else:
-                print("Tuntematon komento!")
-                print("Kirjoita help saadaksesi apua")
+                todo_io.unknown_command()
         print()
-
-def file_choice():
-    filename = ""
-    while True:        
-        filename = todo_io.get_filename
-        if filename == "cancel":
-            break
-
-        if todo_logic.check_filename(filename):
-            todo_io.print_filename_instruction()
-        else:
-            startend = todo_logic.name_len(filename)
-            if filename[startend[0]:startend[1]] == ".txt":
-                todo_dao.open_file(filename)
-                break
-            else:
-                todo_io.file_ending_incorrect()
-    return filename
-
-# def command_hashtable(command_list):

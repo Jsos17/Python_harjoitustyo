@@ -1,12 +1,16 @@
 from todo import Todo
 
+
 def check_filename(filename):
     return len(filename) <= 4
 
-def name_len(filename):
+
+def file_ending(filename):
+    print(filename)
     fn_len = len(filename)
-    return [fn_len, fn_len - 4]
-    
+    return filename[fn_len - 4:fn_len]
+
+
 def todo_modify(line, inputs):
     fields = line.strip().split("|")
     todo_fields = []
@@ -21,22 +25,16 @@ def todo_modify(line, inputs):
 
     return Todo(todo_fields[0], todo_fields[1], todo_fields[2], todo_fields[3], todo_fields[4])
 
-def get_index(list_length, status):
-    instruction = todo_io.update_delete(status)
-    index = -1
-    if instruction == "":
-        return index
 
+def get_index(list_length, instruction):
+    index = -1
     while True:
         try:
-            index = int(input(instruction))
-            if index >= 0 and index < list_length:
-                break
-            elif index == -1:
-                todo_io.cancel
+            index = int(instruction)
+            if index >= -1 and index < list_length:
                 break
             else:
-                todo_io.index_not_in_list
+                return -2
         except ValueError:
-            todo_io.not_in_Z
+            return -3
     return index
