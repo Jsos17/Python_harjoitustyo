@@ -2,14 +2,18 @@ import pytest
 import src.todo_logic as logic
 from src.todo import Todo
 
+
 def test_check_filename1():
     assert logic.check_filename("todo.txt") == False
+
 
 def test_check_filename2():
     assert logic.check_filename("txt") == True
 
+
 def test_file_ending():
     assert logic.file_ending("tomorrow") == "rrow"
+
 
 def test_todo_modify():
     line = "a | qw | e | r | t"
@@ -20,6 +24,7 @@ def test_todo_modify():
     assert todo.deadline == "e"
     assert todo.priority == "r"
     assert todo.done_status == "xx"
+
 
 def test_get_index():
     assert logic.get_index(10, 2) == 2
