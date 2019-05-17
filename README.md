@@ -1,4 +1,4 @@
-# Todo database
+# A Todo database and user interface to manage it
 
 ## Documentation
 
