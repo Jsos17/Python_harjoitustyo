@@ -1,8 +1,9 @@
 import os.path
-from todo import Todo
+from src.todo import Todo
 
 
 def welcome():
+    print()
     print("Todo-lista")
     print("Valitse toiminto kirjoittamalla haluttu komento:")
     print()
@@ -32,20 +33,19 @@ def commands_reminder():
 
 
 def current_location(filename):
+    print()
     print("Tämänhetkinen tallennustiedosto: ", filename)
 
 
 def choose_command():
-    command = input(
+    return input(
         "Valitse (list, find, new, update, delete, change file, help, stop): ")
-    return command
 
 
-def get_filename():
+def set_filename():
     print("Anna tallennustiedosto joka sijaitsee ohjelman suorituskansiossa (jos tiedostoa ei ole se luodaan) ja jonka pääte on .txt")
-    filename = input(
+    return input(
         "Anna tallennustiedoston nimi päätteellä: .txt TAI lopeta komennolla: cancel :")
-    return filename
 
 
 def print_filename_instruction():
@@ -61,9 +61,8 @@ def create_entry(todo):
 
 
 def find_keyword(filename):
-    name = input(
+    return input(
         "Etsi todon nimen perusteella (tyhjä rivi palauttaa kaikki): ")
-    return name
 
 
 def print_matches(index_todo_tuple):
@@ -80,6 +79,7 @@ def print_matches(index_todo_tuple):
 
 
 def list_todos(todolist):
+    print()
     if len(todolist) > 0:
         print("Löydetyt todot:")
         print("Nimi | Kuvaus | Deadline | Prioriteetti | Status")
@@ -105,8 +105,7 @@ def todo_create(filename):
 
 
 def save_confirmation():
-    status = input("Haluatko tallentaa (y/n)?: ")
-    return status
+    return input("Haluatko tallentaa (y/n)?: ")
 
 
 def todo_modify():

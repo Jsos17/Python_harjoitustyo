@@ -1,8 +1,8 @@
 import os.path
-from todo import Todo
+from src.todo import Todo
 
 
-def open_file(filename):
+def create_file_if_not_exists(filename):
     if not os.path.isfile(filename):
         with open(filename, "wt") as f:
             f.close()
