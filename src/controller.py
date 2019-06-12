@@ -1,4 +1,3 @@
-from src.todo import Todo
 import src.todo_logic as logic
 import src.todo_dao as dao
 import src.todo_io as io

@@ -1,4 +1,3 @@
-import os.path
 from src.todo import Todo
 
 

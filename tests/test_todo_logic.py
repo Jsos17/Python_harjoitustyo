@@ -1,6 +1,4 @@
-import pytest
 import src.todo_logic as logic
-from src.todo import Todo
 
 
 def test_check_filename1():
@@ -12,18 +10,18 @@ def test_check_filename2():
 
 
 def test_file_ending():
-    assert logic.file_ending("tomorrow") == "rrow"
+    assert object.__eq__(logic.file_ending("tomorrow"), "rrow")
 
 
 def test_todo_modify():
     line = "a | qw | e | r | t"
     inputs = ["", "d", "", "", "xx"]
     todo = logic.todo_modify(line, inputs)
-    assert todo.name == "a"
-    assert todo.description == "d"
-    assert todo.deadline == "e"
-    assert todo.priority == "r"
-    assert todo.done_status == "xx"
+    assert object.__eq__(todo.name, "a")
+    assert object.__eq__(todo.description, "d")
+    assert object.__eq__(todo.deadline, "e")
+    assert object.__eq__(todo.priority, "r")
+    assert object.__eq__(todo.done_status, "xx")
 
 
 def test_get_index():

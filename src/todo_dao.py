@@ -1,5 +1,4 @@
 import os.path
-from src.todo import Todo
 
 
 def create_file_if_not_exists(filename):
@@ -57,11 +56,11 @@ def update(filename, todo_entry, index, todos):
     try:
         temp_filename = filename + ".tmp"
         with open(temp_filename, "wt") as tempfile:
-            for i in range(len(todos)):
+            for i, todo in enumerate(todos):
                 if i == index:
                     tempfile.write(todo_entry)
                 else:
-                    tempfile.write(todos[i] + "\n")
+                    tempfile.write(todo + "\n")
 
         os.replace(temp_filename, filename)
         return True
@@ -73,9 +72,9 @@ def delete(filename, index, todos):
     try:
         temp_filename = filename + ".tmp"
         with open(temp_filename, "wt") as tempfile:
-            for i in range(len(todos)):
+            for i, todo in enumerate(todos):
                 if i != index:
-                    tempfile.write(todos[i] + "\n")
+                    tempfile.write(todo + "\n")
 
         os.replace(temp_filename, filename)
         return True
