@@ -8,7 +8,7 @@ install:
   - python setup.py -q install
 
 script:
-  - pytest --cov=src/
+  - pytest --cov=codecov
 
 after_success:
   - codecov
