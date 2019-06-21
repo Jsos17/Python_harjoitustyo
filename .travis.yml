@@ -8,7 +8,7 @@ install:
   - python setup.py -q install
 
 script:
-  - pytest --cov=src --cov-config=.coveragerc tests
+  - pytest --cov=src
 
 after_success:
   - codecov
