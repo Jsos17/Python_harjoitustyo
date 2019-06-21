@@ -56,7 +56,9 @@ def file_ending_incorrect():
 
 
 def create_entry(todo):
-    return todo.name + " | " + todo.description + " | " + todo.deadline + " | " + todo.priority + " | " + todo.done_status + "\n"
+    line = " | ".join([todo.name, todo.description,
+                       todo.deadline, todo.priority, todo.done_status])
+    return " | ".join([line, "\n"])
 
 
 def find_keyword(filename):
@@ -96,8 +98,8 @@ def todo_create(filename):
     priority = input("Prioriteetti: ")
     done = input("Tehtävän status: ")
     print("Syötit:")
-    print("|Nimi:", name, "|Kuvaus:", description, "|Deadline:",
-          deadline, "|Prioriteetti:", priority, "|Status:", done)
+    print(
+        f"|Nimi: {name} |Kuvaus: {description} |Deadline: {deadline} |Prioriteetti: {priority} |Status: {done}")
     print()
 
     return Todo(name, description, deadline, priority, done)
@@ -166,7 +168,7 @@ def no_changes():
 
 
 def delete_confirmation(index, todo):
-    print("Poistettava Todo:", index, todo)
+    print(f"Poistettava Todo: {index} {todo}")
     status = input("Poistetaanko rivi (y/n)?: ")
     return status
 

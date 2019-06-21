@@ -9,4 +9,6 @@ class Todo:
         self.done_status = done_status
 
     def to_string(self):
-        return self.name + " | " + self.description + " | " + self.deadline + " | " + self.priority + " | " + self.done_status + "\n"
+        line = " | ".join([self.name, self.description,
+                           self.deadline, self.priority, self.done_status])
+        return "".join([line, "\n"])

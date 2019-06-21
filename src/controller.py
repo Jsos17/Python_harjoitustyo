@@ -7,6 +7,8 @@ class Controller:
 
     def __init__(self):
         self. filename = "cancel"
+        self.commands = {"new": self.new, "update": self.update, "delete": self.delete,
+                         "change file": self.file_choice, "help": io.list_commands}
 
     def file_choice(self):
         while True:
@@ -90,24 +92,16 @@ class Controller:
             else:
                 io.current_location(self.filename)
                 command = io.choose_command()
-                if command == "list":
+                if command == "stop":
+                    io.program_closes()
+                    break
+                elif command == "list":
                     io.list_todos(dao.read(self.filename))
                 elif command == "find":
                     keyword = io.find_keyword(self.filename)
                     io.print_matches(
                         dao.find(self.filename, keyword))
-                elif command == "new":
-                    self.new()
-                elif command == "update":
-                    self.update()
-                elif command == "delete":
-                    self.delete()
-                elif command == "change file":
-                    self.file_choice()
-                elif command == "help":
-                    io.list_commands()
-                elif command == "stop":
-                    io.program_closes()
-                    break
+                elif command in self.commands:
+                    self.commands[command]()
                 else:
                     io.unknown_command()

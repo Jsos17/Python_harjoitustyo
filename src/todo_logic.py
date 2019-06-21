@@ -6,8 +6,7 @@ def check_filename(filename):
 
 
 def file_ending(filename):
-    fn_len = len(filename)
-    return filename[fn_len - 4:fn_len]
+    return filename[len(filename) - 4:]
 
 
 def todo_modify(line, inputs):
