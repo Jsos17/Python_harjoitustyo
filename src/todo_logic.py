@@ -21,7 +21,7 @@ def todo_modify(line, inputs):
         else:
             todo_fields.append(inputs[i])
 
-    return Todo(todo_fields[0], todo_fields[1], todo_fields[2], todo_fields[3], todo_fields[4])
+    return Todo(*todo_fields)
 
 
 def get_index(list_length, instruction):
