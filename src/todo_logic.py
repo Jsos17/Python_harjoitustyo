@@ -26,13 +26,11 @@ def todo_modify(line, inputs):
 
 def get_index(list_length, instruction):
     index = -1
-    while True:
-        try:
-            index = int(instruction)
-            if index >= -1 and index < list_length:
-                break
-            else:
-                return -2
-        except ValueError:
-            return -3
-    return index
+    try:
+        index = int(instruction)
+        if index >= -1 and index < list_length:
+            return index
+        else:
+            return -2
+    except ValueError:
+        return -3

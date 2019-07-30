@@ -2,10 +2,8 @@ from src.todo import Todo
 
 
 def welcome():
-    print()
-    print("Todo-lista")
-    print("Valitse toiminto kirjoittamalla haluttu komento:")
-    print()
+    print("\nTodo-lista")
+    print("Valitse toiminto kirjoittamalla haluttu komento:\n")
 
 
 def choose_location():
@@ -17,23 +15,22 @@ def program_closes():
 
 
 def list_commands():
-    print("Listaa todot:", "list")
-    print("Etsi todoja", "find")
-    print("Uusi todo:", "new")
-    print("Muokkaa todoa:", "update")
-    print("Poista todo:", "delete")
-    print("Muuta tallennuspaikkaa", "change file")
-    print("Komentoapu:", "help")
-    print("Lopeta:", "stop")
+    print("Listaa todot: list")
+    print("Etsi todoja find")
+    print("Uusi todo: new")
+    print("Muokkaa todoa: update")
+    print("Poista todo: delete")
+    print("Muuta tallennuspaikkaa change file")
+    print("Komentoapu: help")
+    print("Lopeta: stop")
 
 
 def commands_reminder():
-    print("Anna komento:", "choose file", "TAI komento:", "stop")
+    print("Anna komento: choose file TAI komento: stop")
 
 
 def current_location(filename):
-    print()
-    print("Tämänhetkinen tallennustiedosto: ", filename)
+    print(f"\nTämänhetkinen tallennustiedosto: {filename}")
 
 
 def choose_command():
@@ -74,7 +71,7 @@ def print_matches(index_todo_tuple):
         print("Löydetyt avainsanaa vastaavat todot:")
         print("Rivinumero | Nimi | Kuvaus | Deadline | Prioriteetti | Status")
         for index in indexes:
-            print(index, all_todos[index])
+            print(f"{index} {all_todos[index]}")
     else:
         print("Ei löydettyjä vastaavuksia")
 
@@ -83,8 +80,7 @@ def list_todos(todolist):
     print()
     if len(todolist) > 0:
         print("Löydetyt todot:")
-        print("Nimi | Kuvaus | Deadline | Prioriteetti | Status")
-        print()
+        print("Nimi | Kuvaus | Deadline | Prioriteetti | Status\n")
         for entry in todolist:
             print(entry)
     else:
@@ -93,16 +89,15 @@ def list_todos(todolist):
 
 def todo_create(filename):
     name = input("Tehtävän nimi: ")
-    description = input("Kuvaus: ")
-    deadline = input("Deadline: ")
-    priority = input("Prioriteetti: ")
+    descr = input("Kuvaus: ")
+    dl = input("Deadline: ")
+    prty = input("Prioriteetti: ")
     done = input("Tehtävän status: ")
     print("Syötit:")
     print(
-        f"|Nimi: {name} |Kuvaus: {description} |Deadline: {deadline} |Prioriteetti: {priority} |Status: {done}")
-    print()
+        f"|Nimi: {name} |Kuvaus: {descr} |Deadline: {dl} |Prioriteetti: {prty} |Status: {done}\n")
 
-    return Todo(name, description, deadline, priority, done)
+    return Todo(name, descr, dl, prty, done)
 
 
 def save_confirmation():
