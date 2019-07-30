@@ -93,9 +93,8 @@ def todo_create(filename):
     dl = input("Deadline: ")
     prty = input("Prioriteetti: ")
     done = input("Tehtävän status: ")
-    print("Syötit:")
     print(
-        f"|Nimi: {name} |Kuvaus: {descr} |Deadline: {dl} |Prioriteetti: {prty} |Status: {done}\n")
+        f"Syötit:\n|Nimi: {name} |Kuvaus: {descr} |Deadline: {dl} |Prioriteetti: {prty} |Status: {done}\n")
 
     return Todo(name, descr, dl, prty, done)
 
