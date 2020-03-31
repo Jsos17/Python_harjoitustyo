@@ -6,4 +6,4 @@
 
 The user can manage his to-do list through a text-based user interface and save the changes into a text-file.
 
-Originally this project was done during the summer of 2018 for an introductory Python programming course offered by the University of Helsinki's Open University. Since then, the project has been refactored: IO operations, logical functionality, database functionality and the functionality of the text-based user interface are separated into their own modules.
+Originally this project was done during the summer of 2018 for an introductory Python programming course offered by the University of Helsinki's Open University. Since then, the project has been refactored: IO operations, logical functionality, database functionality and the functionality of the text-based user interface have been separated into their own modules.
